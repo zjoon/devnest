@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="About.css">
+</head>
+
+<body>
+
+    <!-- ========== NAVBAR HTML ========== -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="logo">
+        </div>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="hamburger">
+            <img src="hamburger.png" alt="menu" class="ham-icon">
+            <img src="cross.png" alt="close" class="cross-icon">
+        </label>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="home.html#offers">Offers</a>
+            <a href="about.html">About</a>
+            <a href="Contact.html">Contact</a>
+        </div>
+    </div>
+
+    <!-- ========== ABOUT PAGE CONTENT ========== -->
+    <div class="about-wrapper">
+
+        <!-- About Us Button -->
+        <div class="about-btn-wrap">
+            <button class="about-btn">🍽️ ABOUT US</button>
+        </div>
+
+        <!-- Our Story Section -->
+        <section class="story-section">
+            <h2 class="section-title">🍖 OUR STORY</h2>
+            <div class="story-text">
+                <p>Founded in 2015, Zainab Resturant started as a small family kitchen with a passion for authentic
+                    Pakistani and Continental cuisine. What began as a dream to serve homemade biryani to neighbors
+                    quickly grew into a beloved local restaurant. Today, we serve thousands of happy customers with the
+                    same love and quality that started it all.</p>
+                <p>Every dish is prepared fresh, using traditional recipes passed down through generations. We believe
+                    food is not just ingredients — it's emotion, memories, and togetherness.</p>
+            </div>
+        </section>
+
+        <!-- Meet Our Chef Section -->
+        <section class="chef-section">
+            <h2 class="section-title">👨‍🍳 MEET OUR CHEF</h2>
+
+            <div class="chef-card">
+                <div class="chef-img-wrap">
+                    <img src="chef1.jpg" alt="Chef Ahmed Raza" class="chef-img">
+                </div>
+                <div class="chef-info">
+                    <p class="chef-name">Chef Ahmed Raza</p>
+                    <p class="chef-exp">15+ years exp</p>
+                    <p class="chef-spec-label">specializes in</p>
+                    <p class="chef-spec">Biryani &amp; BBQ</p>
+                </div>
+            </div>
+
+            <div class="chef-card">
+                <div class="chef-img-wrap">
+                    <img src="chef2.jpg" alt="Chef Umar Ali" class="chef-img">
+                </div>
+                <div class="chef-info">
+                    <p class="chef-name">Chef Umar Ali</p>
+                    <p class="chef-exp">10+ years exp</p>
+                    <p class="chef-spec-label">specializes in</p>
+                    <p class="chef-spec">Desserts &amp; BBQ</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Vision Section -->
+        <section class="mv-section">
+            <h2 class="section-title">🎯 MISSION &amp; VISION</h2>
+            <div class="mv-grid">
+                <div class="mv-card">
+                    <p class="mv-card-title">🎯 OUR MISSION</p>
+                    <p class="mv-card-text">At Zainab Restaurant, our mission is to serve authentic, high-quality
+                        Pakistani and Continental cuisine crafted with fresh ingredients and traditional recipes. We are
+                        committed to providing warm hospitality, exceptional service, and a welcoming atmosphere where
+                        every guest feels like family. </p>
+                </div>
+                <div class="mv-card">
+                    <p class="mv-card-title">🌟 OUR VISION</p>
+                    <p class="mv-card-text">Our vision is to become the most loved and trusted restaurant brand in
+                        Lahore and beyond, recognized for our unwavering commitment to quality, taste, and customer
+                        happiness. We aim to expand our presence across Pakistan, bringing our unique flavors and
+                        exceptional service to more communities. </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ========== FOOTER HTML ========== -->
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-box">
+                <h2>🍕 Zainab R</h2>
+                <p>Best biryani & street food in town. Fresh, spicy, delivered.</p>
+                <div class="timing">🕒 Mon-Sun: 12pm - 11pm</div>
+            </div>
+
+            <div class="footer-box">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="home.html#offers">Offers</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-box">
+                <h2>Contact Us</h2>
+                <p>📞 +92 300 1234567<br>✉️ hello@zainabrestaurant.com<br>📍 Lahore, Pakistan</p>
+            </div>
+
+            <div class="footer-box">
+                <h2>Follow Us</h2>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="subscribe">
+            <p>📧 Subscribe for exclusive offers: zanimoon7@gmail.com</p>
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+
+        <div class="payment">💳 We Accept: Visa | Mastercard | Easypaisa | JazzCash</div>
+        <div class="copyright">© 2026 Zainab Restaurant. All rights reserved. | Privacy Policy</div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('subscribeBtn');
+        if (btn) {
+            btn.addEventListener('click', () => alert('✅ Subscribed! Thank you.'));
+        }
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768 && menuToggle) {
+                    menuToggle.checked = false;
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

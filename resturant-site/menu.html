@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Menu</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@300;400;700&family=Caveat:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="menu.css">
+</head>
+
+<body>
+
+    <div id="toast-container"></div>
+
+    <div class="navbar">
+        <div class="logo"><img src="logo.png" alt="logo"></div>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="hamburger">
+            <img src="hamburger.png" alt="menu" class="ham-icon">
+            <img src="cross.png" alt="close" class="cross-icon">
+        </label>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="home.html#offers">Offers</a>
+            <a href="home.html#reviews">Reviews</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h2>Our Menu</h2>
+        <p class="hero-sub">Choose your favorite dish</p>
+    </div>
+
+    <div class="search-bar">
+        <span class="search-icon"><img src="search.png" alt="search" style="height: 25px;"></span>
+        <input type="text" id="searchInput" placeholder="All you want is here......">
+        <button class="clear-btn" onclick="clearSearch()"><img src="delete.png" alt="clear"
+                style="height: 25px;">clear</button>
+    </div>
+
+    <div class="categories-section">
+        <div class="categories-label">Food Categories</div>
+        <div class="categories">
+            <button class="label active" onclick="filterCategory('all', this)">🍴 All</button>
+            <button class="label" onclick="filterCategory('pizza', this)">🍕 Pizza</button>
+            <button class="label" onclick="filterCategory('burger', this)">🍔 Burger</button>
+            <button class="label" onclick="filterCategory('salad', this)">🥗 Salad</button>
+            <button class="label" onclick="filterCategory('biryani', this)">🍛 Biryani</button>
+            <button class="label" onclick="filterCategory('fastfood', this)">🌮 Fast Food</button>
+        </div>
+
+        <div class="cards" id="cardsGrid">
+            <div class="no-results" id="noResults" style="display:none;">😔 Nothing found.</div>
+        </div>
+    </div>
+
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h2>Zainab R</h2>
+                <p>Best biryani & street food in town. Fresh, spicy, delivered.</p>
+                <div class="timing">🕒 Mon-Sun: 12pm - 11pm</div>
+            </div>
+            <div class="footer-box">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="home.html#offers">Offers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-box">
+                <h2>Contact Us</h2>
+                <p>📞 +92 300 1234<br>✉️ hello@zainabrestaurant.com<br>📍 Lahore, Pakistan</p>
+            </div>
+            <div class="footer-box">
+                <h2>Follow Us</h2>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="subscribe">
+            <p>📧 Subscribe for exclusive offers: zanimoon7@gmail.com</p>
+            <button>Subscribe</button>
+        </div>
+        <div class="payment">💳 We Accept: Visa | Mastercard | Easypaisa | JazzCash</div>
+        <div class="copyright">© 2026 Zainab Restaurant. All rights reserved. | Privacy Policy</div>
+    </footer>
+
+    <script>
+        var currentCategory = 'all';
+        var searchTerm = '';
+
+        // ===== DEFAULT ITEMS — hamesha base mein rahenge =====
+        const defaultMenuItems = [
+            { id: 1, name: "Chicken Leg Piece Biryani", price: 10.99, category: "biryani", image: "food1.jpg", rating: 4.8, description: "Juicy leg piece, aromatic basmati rice, secret spices", showOn: "both" },
+            { id: 2, name: "Special Beef Broth Nahari", price: 12.99, category: "fastfood", image: "food2.jpg", rating: 4.9, description: "Slow-cooked beef shanks in traditional spices & bone broth", showOn: "both" },
+            { id: 3, name: "Grilled Honey Garlic Chicken", price: 11.49, category: "fastfood", image: "food3.jpg", rating: 4.7, description: "Juicy grilled chicken glazed with honey garlic sauce", showOn: "both" },
+            { id: 4, name: "Spicy Seekh Kebab with Mint", price: 5.99, category: "fastfood", image: "food4.jpg", rating: 4.6, description: "Minced meat, secret spices, grilled to perfection", showOn: "both" },
+            { id: 5, name: "Crispy Samosa with Chutney", price: 2.99, category: "fastfood", image: "food5.jpg", rating: 4.8, description: "Crispy triangle pastry filled with spiced potatoes and peas", showOn: "both" },
+            { id: 6, name: "Gol Gappay (Pani Puri)", price: 3.99, category: "fastfood", image: "food6.jpg", rating: 4.9, description: "Crispy hollow puris filled with spicy tangy water", showOn: "both" },
+            { id: 7, name: "Poori Channay", price: 4.99, category: "fastfood", image: "food8.jpg", rating: 4.9, description: "Crispy fried puri served with spicy chickpea curry", showOn: "both" },
+            { id: 8, name: "Gulab Jamun", price: 3.99, category: "fastfood", image: "food9.jpg", rating: 4.9, description: "Soft, melt-in-mouth dumplings soaked in fragrant sugar syrup", showOn: "both" },
+            { id: 10, name: "Chicken Caesar Salad", price: 9.99, category: "salad", image: "food10.jpg", rating: 4.7, description: "Fresh romaine lettuce, grilled chicken, parmesan, croutons", showOn: "both" },
+            { id: 11, name: "Shami Kebab", price: 6.99, category: "fastfood", image: "food11.jpg", rating: 4.8, description: "Slow-cooked minced meat patties with lentils and spices", showOn: "both" },
+            { id: 12, name: "Chicken Tikka", price: 10.99, category: "fastfood", image: "food12.jpg", rating: 4.9, description: "Boneless chicken marinated in yogurt and spices", showOn: "both" },
+            { id: 13, name: "Pepperoni Pizza", price: 12.99, category: "pizza", image: "food13.jpg", rating: 4.8, description: "Classic pizza with spicy pepperoni and mozzarella", showOn: "both" },
+            { id: 14, name: "Chicken Dum Biryani", price: 13.99, category: "biryani", image: "food14.jpg", rating: 4.9, description: "Fragrant basmati rice with tender chicken and spices", showOn: "both" },
+            { id: 15, name: "Crispy Chicken Burger", price: 11.99, category: "burger", image: "food15.jpg", rating: 4.7, description: "Double-stacked crispy chicken in a toasted brioche bun", showOn: "both" }
+        ];
+
+        function getMergedMenuItems() {
+            let saved = localStorage.getItem('restaurantFoodItems');
+            let adminItems = saved ? JSON.parse(saved) : [];
+
+            // Default items ko base banao
+            let merged = defaultMenuItems.map(def => {
+                let adminVersion = adminItems.find(a => a.id === def.id);
+                // Agar admin nay delete kiya ho to remove karo
+                if (adminItems.length > 0 && !adminVersion) return null;
+                return adminVersion || def;
+            }).filter(item => item !== null);
+
+            // Admin kay naye items jo menu ya both pe show hain
+            let newAdminItems = adminItems.filter(a => {
+                let isDefault = defaultMenuItems.some(d => d.id === a.id);
+                return !isDefault && (a.showOn === 'menu' || a.showOn === 'both');
+            });
+
+            return [...merged, ...newAdminItems];
+        }
+
+        function renderMenuCards() {
+            const cardsGrid = document.getElementById('cardsGrid');
+            if (!cardsGrid) return;
+
+            // Pehle noResults div bachao
+            const noResults = document.getElementById('noResults');
+
+            let items = getMergedMenuItems();
+            // Sirf menu ya both wale items
+            let menuItems = items.filter(i => !i.showOn || i.showOn === 'menu' || i.showOn === 'both');
+
+            // Pehle sab cards hata do (noResults chhod ke)
+            Array.from(cardsGrid.children).forEach(child => {
+                if (child.id !== 'noResults') child.remove();
+            });
+
+            menuItems.forEach(item => {
+                let badge = item.category === 'biryani' ? '🍛 House Special' :
+                    item.category === 'pizza' ? '🍕 Bestseller' :
+                        item.category === 'burger' ? '🍔 Fan Favorite' :
+                            item.category === 'salad' ? '🥗 Healthy Choice' : '🔥 Chef Special';
+
+                let card = document.createElement('div');
+                card.className = 'food-card';
+                card.setAttribute('data-category', item.category || 'fastfood');
+                card.setAttribute('data-name', item.name.toLowerCase());
+                card.innerHTML = `
+                    <img src="${item.image}" alt="food">
+                    <div class="card-content">
+                        <h2>${badge}</h2>
+                        <h3>${item.name.toUpperCase()}</h3>
+                        <p>${item.description || 'Fresh and tasty dish made with love.'}</p>
+                        <div class="reviews">⭐ ${item.rating} (100+ reviews)</div>
+                        <span>✨ Fresh | 🔥 Hot</span>
+                        <div class="card-bottom">
+                            <span class="price">$${item.price.toFixed(2)}</span>
+                            <button onclick="viewProduct(${item.id})">🔍 View Details</button>
+                        </div>
+                    </div>
+                `;
+                // noResults se pehle insert karo
+                cardsGrid.insertBefore(card, noResults);
+            });
+
+            applyFilters();
+        }
+
+        function filterCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.label').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        }
+
+        function applyFilters() {
+            let cards = document.querySelectorAll('#cardsGrid .food-card');
+            let visible = 0;
+            cards.forEach(card => {
+                let cat = card.getAttribute('data-category') || '';
+                let name = card.getAttribute('data-name') || '';
+                let matchCat = (currentCategory === 'all') || (cat === currentCategory);
+                let matchSearch = (searchTerm === '') || (name.indexOf(searchTerm) !== -1);
+                if (matchCat && matchSearch) {
+                    card.style.display = '';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            let noResults = document.getElementById('noResults');
+            if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
+        }
+
+        document.getElementById('searchInput')?.addEventListener('input', function () {
+            searchTerm = this.value.trim().toLowerCase();
+            applyFilters();
+        });
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchTerm = '';
+            applyFilters();
+        }
+
+        function viewProduct(id) {
+            localStorage.setItem('selectedProductId', id);
+            window.location.href = 'Food details.html';
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => document.getElementById('menu-toggle').checked = false);
+        });
+
+        // Admin save kare to menu reload ho
+        window.addEventListener('storage', function (e) {
+            if (e.key === 'restaurantFoodItems') {
+                renderMenuCards();
+            }
+        });
+
+        renderMenuCards();
+    </script>
+</body>
+
+</html>
