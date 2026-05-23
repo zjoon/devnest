@@ -1,0 +1,811 @@
+/* ========== RESET ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #7a0000;
+    overflow-x: hidden;
+}
+
+/* ========== NAVBAR CSS ========== */
+.navbar {
+    height: 80px;
+    width: 100%;
+    margin: 0px auto;
+    border-radius: 20px;
+    padding: 0px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #d63c00, #a35c00);
+    position: relative;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 95px;
+    width: 95px;
+    object-fit: contain;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #5a1a00;
+    transition: 0.3s;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a:hover {
+    color: #fff3d6;
+    transform: translateY(-2px);
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background: #fff3d6;
+    transition: 0.4s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Hamburger Menu */
+#menu-toggle {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.hamburger .ham-icon {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.hamburger .cross-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+#menu-toggle:checked~.hamburger .ham-icon {
+    opacity: 0;
+}
+
+#menu-toggle:checked~.hamburger .cross-icon {
+    opacity: 1;
+}
+
+#menu-toggle:checked~.nav-links {
+    right: 0;
+}
+
+/* ========== ABOUT PAGE CONTENT ========== */
+
+.about-wrapper {
+    width: 92%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 0 60px;
+}
+
+/* About Us Button */
+.about-btn-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 28px 0 32px;
+}
+
+.about-btn {
+    background: linear-gradient(90deg, #D92123, #731113);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 38px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: default;
+    letter-spacing: 0.5px;
+}
+
+/* Shared section card style */
+.story-section,
+.chef-section,
+.mv-section {
+    background: linear-gradient(90deg, #BC0002, #560001);
+    border-radius: 18px;
+    padding: 24px 28px 30px;
+    margin-bottom: 32px;
+}
+
+/* Section title */
+.section-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 18px;
+    letter-spacing: 0.3px;
+}
+
+/* ---- OUR STORY ---- */
+.story-text p {
+    font-size: 13.5px;
+    color: #fff;
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.story-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* ---- MEET OUR CHEF ---- */
+.chef-card {
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.chef-card:last-child {
+    margin-bottom: 0;
+}
+
+.chef-img-wrap {
+    width: 140px;
+    min-width: 140px;
+    height: 160px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #922b21;
+}
+
+.chef-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.chef-info {
+    flex: 1;
+    background: #922b21;
+    border-radius: 12px;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.chef-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.chef-exp {
+    font-size: 13px;
+    color: #fff;
+}
+
+.chef-spec-label {
+    font-size: 13px;
+    color: white;
+}
+
+.chef-spec {
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* ---- MISSION & VISION ---- */
+.mv-grid {
+    height: 300px;
+
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.mv-card {
+    flex: 1;
+    background: linear-gradient(90deg, #E31A1D, #480C0C);
+    border-radius: 14px;
+    padding: 20px 16px 24px;
+}
+
+.mv-card-title {
+    font-size: 13.5px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 14px;
+}
+
+.mv-card-text {
+    font-size: 15px;
+    color: #f5e6e6;
+    line-height: 1.65;
+}
+
+/* ========== FOOTER CSS ========== */
+.footer {
+    padding: 40px 30px;
+    border-radius: 30px;
+    width: 97%;
+    margin: 70px auto 0;
+    background: linear-gradient(to bottom, #b63a00, #7a1200);
+    color: white;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-box {
+    width: 220px;
+}
+
+.footer-box h2 {
+    font-size: 28px;
+    margin-bottom: 18px;
+}
+
+.footer-box p {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #f2f2f2;
+}
+
+.footer-box ul {
+    list-style: none;
+}
+
+.footer-box ul li {
+    margin-bottom: 12px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.footer-box ul li:hover {
+    transform: translateX(5px);
+}
+
+.footer-box ul li a {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.footer-box ul li a:hover {
+    color: #ffe0b3;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 22px;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    color: #ffe0b3;
+    transform: translateX(5px);
+    display: inline-block;
+}
+
+.timing {
+    color: black;
+    margin-top: 55px;
+    font-size: 22px;
+    white-space: nowrap;
+}
+
+.subscribe {
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.subscribe p {
+    color: black;
+    font-size: 22px;
+}
+
+.subscribe button {
+    border: none;
+    background: #BC0002;
+    color: white;
+    padding: 12px 35px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.subscribe button:hover {
+    background: #d10f0f;
+    transform: scale(1.05);
+}
+
+.payment {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 23px;
+    color: #111;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 35px;
+    font-size: 22px;
+    color: #111;
+}
+
+/* ========== MEDIA QUERIES ========== */
+
+/* Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+
+    .navbar {
+        height: 75px;
+        padding: 0px 18px;
+        border-radius: 0 0 20px 20px;
+        position: relative;
+        z-index: 1000;
+    }
+
+    .logo img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 75px;
+        right: -100%;
+        width: 200px;
+        background: linear-gradient(to bottom, #d63c00, #7a1200);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 30px 0;
+        border-radius: 0 0 20px 20px;
+        transition: right 0.4s ease;
+        z-index: 1000;
+        overflow: hidden;
+        box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-links a {
+        color: #520b0b;
+        font-size: 18px;
+        white-space: nowrap;
+    }
+
+    .nav-links a::after {
+        background: #fff3d6;
+    }
+
+    /* About inner content tablet */
+    .about-wrapper {
+        width: 94%;
+        padding: 20px 0 40px;
+    }
+
+    .story-section,
+    .chef-section,
+    .mv-section {
+        padding: 20px 18px 22px;
+        border-radius: 14px;
+        margin-bottom: 22px;
+    }
+
+    .section-title {
+        font-size: 14px;
+        margin-bottom: 14px;
+    }
+
+    .story-text p {
+        font-size: 13px;
+    }
+
+    .chef-img-wrap {
+        width: 120px;
+        min-width: 120px;
+        height: 140px;
+    }
+
+    .chef-info {
+        padding: 14px 14px;
+    }
+
+    .chef-name {
+        font-size: 14px;
+    }
+
+    .chef-exp,
+    .chef-spec-label,
+    .chef-spec {
+        font-size: 12px;
+    }
+
+    .mv-grid {
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .mv-card {
+        padding: 16px 12px 18px;
+    }
+
+    .mv-card-title {
+        font-size: 12.5px;
+        margin-bottom: 10px;
+    }
+
+    .mv-card-text {
+        font-size: 12px;
+    }
+
+    /* Footer tablet */
+    .footer {
+        width: 94%;
+        padding: 25px 20px;
+        border-radius: 25px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .footer-box {
+        width: 100%;
+    }
+
+    .footer-box h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .footer-box p,
+    .footer-box ul li,
+    .social-links a {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .timing {
+        margin-top: 10px;
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    .subscribe {
+        margin-top: 35px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .subscribe p {
+        font-size: 14px;
+    }
+
+    .subscribe button {
+        padding: 10px 22px;
+        font-size: 14px;
+    }
+
+    .payment,
+    .copyright {
+        font-size: 13px;
+        margin-top: 20px;
+        line-height: 1.5;
+    }
+}
+
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+
+    .navbar {
+        height: auto;
+        padding: 10px 14px;
+    }
+
+    .logo img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .nav-links {
+        top: 65px;
+        width: 180px;
+        gap: 20px;
+        padding: 25px 0;
+    }
+
+    .nav-links a {
+        font-size: 16px;
+    }
+
+    .hamburger {
+        width: 35px;
+        height: 35px;
+    }
+
+    .hamburger .ham-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .hamburger .cross-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* About inner content mobile */
+    .about-wrapper {
+        width: 96%;
+        padding: 16px 0 30px;
+    }
+
+    .about-btn-wrap {
+        margin: 18px 0 22px;
+    }
+
+    .about-btn {
+        font-size: 13px;
+        padding: 10px 28px;
+    }
+
+    .story-section,
+    .chef-section,
+    .mv-section {
+        padding: 16px 14px 18px;
+        border-radius: 12px;
+        margin-bottom: 18px;
+    }
+
+    .section-title {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .story-text p {
+        font-size: 12px;
+        line-height: 1.65;
+    }
+
+    .chef-card {
+        gap: 12px;
+    }
+
+    .chef-img-wrap {
+        width: 100px;
+        min-width: 100px;
+        height: 120px;
+        border-radius: 10px;
+    }
+
+    .chef-info {
+        padding: 12px 12px;
+        border-radius: 10px;
+        gap: 4px;
+    }
+
+    .chef-name {
+        font-size: 13px;
+    }
+
+    .chef-exp,
+    .chef-spec-label,
+    .chef-spec {
+        font-size: 11.5px;
+    }
+
+    .mv-grid {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .mv-card {
+        padding: 14px 12px 16px;
+        border-radius: 12px;
+    }
+
+    .mv-card-title {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .mv-card-text {
+        font-size: 11.5px;
+    }
+
+    /* Footer mobile */
+    .footer {
+        width: 100%;
+        border-radius: 20px 20px 0 0;
+        padding: 20px 16px;
+    }
+
+    .footer-container {
+        gap: 20px;
+    }
+
+    .footer-box h2 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .footer-box p {
+        font-size: 13px;
+    }
+
+    .footer-box ul li {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .social-links a {
+        font-size: 13px;
+    }
+
+    .timing {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .subscribe {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        margin-top: 30px;
+        align-items: stretch;
+    }
+
+    .subscribe p {
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .subscribe button {
+        padding: 9px 22px;
+        font-size: 13px;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+
+    .payment,
+    .copyright {
+        font-size: 11px;
+        margin-top: 16px;
+    }
+}
+
+/* Extra Small (max-width: 380px) */
+@media (max-width: 380px) {
+
+    .navbar {
+        padding: 8px 12px;
+    }
+
+    .logo img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .nav-links {
+        top: 60px;
+        width: 160px;
+        gap: 15px;
+        padding: 20px 0;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+    }
+
+    .chef-img-wrap {
+        width: 90px;
+        min-width: 90px;
+        height: 110px;
+    }
+
+    .mv-grid {
+        flex-direction: column;
+    }
+
+    .footer {
+        padding: 18px 12px;
+    }
+
+    .footer-box h2 {
+        font-size: 16px;
+    }
+
+    .footer-box p,
+    .footer-box ul li,
+    .social-links a {
+        font-size: 12px;
+    }
+
+    .timing {
+        font-size: 11px;
+    }
+
+    .subscribe p {
+        font-size: 12px;
+    }
+
+    .subscribe button {
+        padding: 8px 18px;
+        font-size: 12px;
+    }
+
+    .payment,
+    .copyright {
+        font-size: 10px;
+    }
+}

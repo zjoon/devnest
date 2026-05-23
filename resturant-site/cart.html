@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+
+<body>
+
+    <div id="toast-container"></div>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo"><img src="logo.png" alt="logo"></div>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="hamburger">
+            <img src="hamburger.png" alt="menu" class="ham-icon">
+            <img src="cross.png" alt="close" class="cross-icon">
+        </label>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="index.html#offers">Offers</a>
+            <a href="index.html#reviews">Reviews</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+
+    <!-- CART CONTENT HERE -->
+    <div id="cartContent">
+        <script>
+            function showToast(message) {
+                let container = document.getElementById('toast-container');
+                let toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `<span class="toast-icon">✅</span><span class="toast-text">${message}</span><button class="toast-close" onclick="this.parentElement.remove()">✕</button>`;
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            }
+
+            function saveCart(cart) {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            function getCart() {
+                return JSON.parse(localStorage.getItem('cart')) || [];
+            }
+
+            function renderCart() {
+                const cart = getCart();
+                const container = document.getElementById('cartContent');
+
+                let html = `
+                    <div class="page-title-wrap">
+                        <div class="page-title">🛒 Your Cart (${cart.length} Items)</div>
+                    </div>
+                `;
+
+                if (cart.length === 0) {
+                    html += `<div class="empty-cart">😕 Your cart is empty. <a href="menu.html" style="color:#ffcc00;">Go to Menu</a></div>`;
+                    container.innerHTML = html;
+                    return;
+                }
+
+                cart.forEach((item, index) => {
+                    html += `
+                        <div class="cart-item">
+                            <div class="cart-item-left">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-rating">⭐ 4.8 (1.5k+ reviews)</div>
+                            </div>
+                            <div class="cart-item-right">
+                                <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                                <div class="cart-item-controls">
+                                    <button class="remove-btn" onclick="removeItem(${index})">❌</button>
+                                    <div class="qty-controls">
+                                        <button onclick="changeQty(${index}, -1)">-</button>
+                                        <span>${item.quantity}</span>
+                                        <button onclick="changeQty(${index}, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+                const delivery = 2.00;
+                const tax = +(subtotal * 0.06).toFixed(2);
+                const grand = +(subtotal + delivery + tax).toFixed(2);
+
+                html += `
+                    <div class="total-box">
+                        <h3>💰 Total Amount:</h3>
+                        <div class="total-row"><span>Subtotal:</span><span>$${subtotal.toFixed(2)}</span></div>
+                        <div class="total-row"><span>Delivery Fee:</span><span>$${delivery.toFixed(2)}</span></div>
+                        <div class="total-row"><span>Tax:</span><span>$${tax}</span></div>
+                        <div class="total-row grand"><span>Grand Total:</span><span>$${grand}</span></div>
+                        <button class="checkout-btn" onclick="checkout()">✅ Proceed to Checkout</button>
+                    </div>
+                    <div class="continue-shopping-box">
+                        <p>Changed your mind?</p>
+                        <button class="continue-btn" onclick="window.location.href='index.html'">🛍️ Continue Shopping</button>
+                    </div>
+                `;
+
+                container.innerHTML = html;
+            }
+
+            function removeItem(index) {
+                let cart = getCart();
+                const name = cart[index].name;
+                cart.splice(index, 1);
+                saveCart(cart);
+                renderCart();
+                showToast(`🗑️ ${name} removed from cart`);
+            }
+
+            function changeQty(index, delta) {
+                let cart = getCart();
+                cart[index].quantity += delta;
+                if (cart[index].quantity <= 0) {
+                    removeItem(index);
+                    return;
+                }
+                saveCart(cart);
+                renderCart();
+            }
+
+            function checkout() {
+                showToast('🎉 Proceeding to checkout...');
+                setTimeout(() => {
+                    window.location.href = 'checkout.html';
+                }, 1000);
+            }
+            renderCart();
+        </script>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+
+            <div class="footer-box">
+                <h2>Zainab R</h2>
+                <p>Best biryani & street food in town. Fresh, spicy, delivered.</p>
+                <div class="timing">🕒 Mon-Sun: 12pm - 11pm</div>
+            </div>
+
+            <div class="footer-box">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="index.html#offers">Offers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-box">
+                <h2>Contact Us</h2>
+                <p>📞 +92 300 1234<br>✉️ hello@zainabrestaurant.com<br>📍 Lahore, Pakistan</p>
+            </div>
+
+            <div class="footer-box">
+                <h2>Follow Us</h2>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="subscribe">
+            <p>📧 Subscribe for exclusive offers: zanimoon7@gmail.com</p>
+            <button>Subscribe</button>
+        </div>
+
+        <div class="payment">💳 We Accept: Visa | Mastercard | Easypaisa | JazzCash</div>
+
+        <div class="copyright">© 2026 Zainab Restaurant. All rights reserved. | Privacy Policy</div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => document.getElementById('menu-toggle').checked = false);
+        });
+    </script>
+
+</body>
+
+</html>
