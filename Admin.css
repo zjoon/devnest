@@ -1,0 +1,889 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background: #7a0000;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ===== TOAST ===== */
+#toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    background: linear-gradient(90deg, #b30000, #7a0000);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    pointer-events: all;
+    animation: slideIn 0.4s ease forwards;
+    max-width: 300px;
+}
+
+.toast-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.toast-text {
+    flex: 1;
+    line-height: 1.4;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ===== DESKTOP LAYOUT ===== */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+    padding: 20px 20px 40px 20px;
+    gap: 16px;
+}
+
+/* ---- SIDEBAR ---- */
+.sidebar {
+    width: 145px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+}
+
+/* On desktop, sidebar-pill stretches to fill the stats grid height */
+.sidebar-pill {
+    height: 396px;
+    background: linear-gradient(to bottom, #A62D2D, #881516);
+    border-radius: 30px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+
+}
+
+/* All nav buttons share same base style */
+.sidebar-top-btn,
+.sidebar-pill-btn,
+.sidebar-bottom-btn {
+    width: 100%;
+    background: #BC0002;
+    border: none;
+    color: white;
+    padding: 12px 10px;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.sidebar-top-btn:hover,
+.sidebar-top-btn.active,
+.sidebar-pill-btn:hover,
+.sidebar-pill-btn.active,
+.sidebar-bottom-btn:hover,
+.sidebar-bottom-btn.active {
+    background: linear-gradient(135deg, #d63c00, #8b0000);
+    transform: scale(1.04);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* Profile button stays at bottom of pill */
+.sidebar-bottom-btn {
+    margin-top: auto;
+}
+
+/* ---- MAIN AREA ---- */
+.main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+.admin-topbar {
+    background: linear-gradient(to bottom, #A62D2D, #881516);
+    color: white;
+    text-align: center;
+    padding: 16px 20px;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+/* Home icon in topbar — hidden on desktop, shown on mobile */
+.topbar-home-btn {
+    display: none;
+}
+
+.section {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section.active {
+    display: flex;
+}
+
+/* ---- STATS GRID ---- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #BC0002, #560001);
+    border-radius: 24px;
+    padding: 28px 20px;
+    color: white;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.stat-title {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: #f2f2f2;
+    text-align: center;
+    width: 100%;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.light-stats {
+    font-size: 11px;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px 12px;
+    border-radius: 40px;
+    width: fit-content;
+}
+
+.popular-list {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    text-align: left;
+    width: 100%;
+}
+
+.popular-list li {
+    font-size: 14px;
+    color: #f2f2f2;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* ---- SECTION LABEL ---- */
+.section-label-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.section-label-btn {
+    background: linear-gradient(90deg, #c0392b, #7a0000);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: default;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- TABLE BOX ---- */
+.table-box {
+    background: linear-gradient(135deg, #9a1a00, #5a0a00);
+    border-radius: 24px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.table-top-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.view-all-btn {
+    background: #BC0002;
+    border: none;
+    color: white;
+    padding: 9px 24px;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.view-all-btn:hover {
+    background: #e01010;
+    transform: scale(1.04);
+}
+
+/* ---- ORDERS TABLE (desktop grid) ---- */
+.table-header {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr 1.5fr 0.8fr 0.9fr 0.7fr;
+    background: linear-gradient(90deg, #c0392b, #7a0000);
+    border-radius: 40px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Desktop order row */
+.table-row {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr 1.5fr 0.8fr 0.9fr 0.7fr;
+    background: linear-gradient(90deg, #A62D2D, #C53132);
+    border-radius: 40px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 13px;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+}
+
+.table-row:hover {
+    background: linear-gradient(90deg, #8e1a00, #5a0a00);
+    transform: scale(1.01);
+}
+
+/* ---- FOOD ITEMS ---- */
+.food-items-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.food-row {
+    display: grid;
+    grid-template-columns: 2fr 0.8fr 0.8fr 0.7fr 0.7fr 0.7fr;
+    background: linear-gradient(90deg, #A62D2D, #C53132);
+    border-radius: 40px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 13px;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.food-row:hover {
+    background: linear-gradient(90deg, #8e1a00, #5a0a00);
+    transform: scale(1.01);
+}
+
+.food-name {
+    font-weight: bold;
+}
+
+.food-price {
+    color: #f2f2f2;
+}
+
+.food-rating {
+    color: #ffd700;
+}
+
+.edit-btn,
+.delete-btn {
+    border: none;
+    padding: 7px 14px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+    text-align: center;
+}
+
+.edit-btn {
+    background: #BC0002;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #e01010;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background: #3a0000;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #600000;
+    transform: scale(1.05);
+}
+
+/* ---- PROFILE ---- */
+.profile-box {
+    gap: 16px;
+}
+
+.profile-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+    padding: 10px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+}
+
+.profile-row label {
+    font-weight: bold;
+    min-width: 100px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---- STATUS SELECT ---- */
+.status-select {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 40px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    max-width: 110px;
+}
+
+.status-select.delivered {
+    background: rgba(0, 180, 0, 0.5);
+    color: #90ff90;
+}
+
+.status-select.onway {
+    background: rgba(255, 180, 0, 0.5);
+    color: #ffd970;
+}
+
+.status-select.pending {
+    background: rgba(200, 100, 0, 0.5);
+    color: #ffb570;
+}
+
+.refresh-btn {
+    background: #BC0002;
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.refresh-btn:hover {
+    background: #e01010;
+}
+
+.cancel-btn {
+    background: linear-gradient(135deg, #ff4444, #cc0000);
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 40px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    min-width: 70px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cancel-btn:hover {
+    background: linear-gradient(135deg, #ff6666, #ee0000);
+    transform: scale(1.05);
+}
+
+/* ---- ACTION CELL for status+cancel together ---- */
+.action-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #b30000, #7a0000);
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    color: white;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+}
+
+.modal-content button {
+    background: #BC0002;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.image-preview {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.edit-profile-btn {
+    background: #ff9800;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 40px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 0.3s;
+}
+
+/* ========================================
+           TABLET  (max 900px)
+        ======================================== */
+@media (max-width: 900px) {
+    .admin-wrapper {
+        padding: 14px 14px 30px;
+        gap: 12px;
+    }
+
+    .sidebar {
+        width: 100px;
+    }
+
+    .sidebar-top-btn,
+    .sidebar-pill-btn,
+    .sidebar-bottom-btn {
+        font-size: 11px;
+        padding: 10px 6px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 20px 14px;
+        min-height: 120px;
+    }
+
+    .stat-value {
+        font-size: 22px;
+    }
+
+    .table-header,
+    .table-row {
+        grid-template-columns: 0.7fr 1fr 1.2fr 0.7fr 0.8fr 0.6fr;
+        font-size: 11px;
+        padding: 10px 14px;
+    }
+
+    .food-row {
+        grid-template-columns: 1.5fr 0.7fr 0.7fr 0.6fr 0.6fr 0.6fr;
+        font-size: 11px;
+        padding: 10px 14px;
+    }
+
+    .cancel-btn {
+        padding: 4px 8px;
+        font-size: 10px;
+        min-width: 55px;
+    }
+}
+
+/* ========================================
+           MOBILE (max 600px)
+        ======================================== */
+@media (max-width: 600px) {
+    .admin-wrapper {
+        flex-direction: column;
+        padding: 12px 12px 30px;
+        gap: 12px;
+    }
+
+    /* Sidebar becomes horizontal icon pill */
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        order: -1;
+        background: transparent;
+    }
+
+    /* sidebar-top-btn (🏠) hidden on mobile — shown inside topbar */
+    .sidebar-top-btn {
+        display: none;
+    }
+
+    .sidebar-pill {
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        padding: 8px 12px;
+        gap: 8px;
+        border-radius: 50px;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(to bottom, #A62D2D, #881516);
+        align-self: auto;
+    }
+
+    .sidebar-pill-btn,
+    .sidebar-bottom-btn {
+        font-size: 24px;
+        padding: 8px 0;
+        border-radius: 50px;
+        background: rgba(188, 0, 2, 0.9);
+        flex: 1;
+        text-align: center;
+        font-weight: normal;
+        margin-top: 0;
+    }
+
+    /* Topbar: home btn on left, title center, refresh on right */
+    .admin-topbar {
+        font-size: 14px;
+        padding: 10px 14px;
+        border-radius: 40px;
+        justify-content: space-between;
+    }
+
+    /* Show home btn in topbar on mobile */
+    .topbar-home-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(188, 0, 2, 0.8);
+        border: none;
+        color: white;
+        font-size: 22px;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: 0.3s;
+    }
+
+    .topbar-home-btn:hover,
+    .topbar-home-btn.active {
+        background: linear-gradient(135deg, #d63c00, #8b0000);
+        transform: scale(1.08);
+    }
+
+    .topbar-title {
+        flex: 1;
+        text-align: center;
+        letter-spacing: 2px;
+    }
+
+    /* STATS: Single column like the screenshot */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .stat-card {
+        padding: 22px 20px;
+        min-height: auto;
+        border-radius: 28px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .stat-card .stat-title {
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .stat-card .stat-value {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    .stat-card .light-stats {
+        font-size: 11px;
+    }
+
+    .popular-list {
+        padding-left: 18px;
+        text-align: left;
+    }
+
+    /* Hide desktop table header on mobile */
+    .table-header {
+        display: none;
+    }
+
+    /* Orders: card layout matching the screenshot */
+    .table-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        border-radius: 28px;
+        padding: 14px 16px;
+        gap: 8px;
+        font-size: 13px;
+        align-items: start;
+    }
+
+    /* Order # */
+    .table-row .order-id {
+        font-weight: bold;
+        color: #FFD966;
+        font-size: 14px;
+    }
+
+    /* Customer name */
+    .table-row .order-customer {
+        text-align: right;
+        font-size: 13px;
+    }
+
+    /* Items - full width */
+    .table-row .order-items {
+        grid-column: 1 / -1;
+        font-size: 12px;
+        opacity: 0.9;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 6px 10px;
+        border-radius: 30px;
+    }
+
+    /* Total */
+    .table-row .order-total {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    /* Status select */
+    .table-row .order-status .status-select {
+        max-width: 100%;
+        width: 100%;
+        font-size: 12px;
+    }
+
+    /* Cancel button - below status, full width of its column */
+    .table-row .order-action {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .table-row .order-action .cancel-btn {
+        width: 100%;
+        padding: 8px;
+        font-size: 12px;
+        min-width: unset;
+    }
+
+    /* Food rows: card style */
+    .food-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-radius: 28px;
+        padding: 14px 16px;
+        gap: 8px;
+        font-size: 13px;
+        align-items: center;
+    }
+
+    .food-name {
+        grid-column: 1 / -1;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .food-show-badge {
+        grid-column: 1 / -1;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 4px 10px;
+        border-radius: 30px;
+        text-align: center;
+        width: fit-content;
+        font-size: 11px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .profile-row {
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    .profile-row label {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .section-label-btn {
+        font-size: 13px;
+        padding: 10px 20px;
+    }
+
+    .table-box {
+        padding: 16px;
+    }
+
+    /* Action cell on mobile - stacked in one column */
+    .action-cell {
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+    }
+
+    .action-cell .status-select {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .action-cell .cancel-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .stat-value {
+        font-size: 26px;
+    }
+
+    .sidebar-top-btn,
+    .sidebar-pill-btn,
+    .sidebar-bottom-btn {
+        font-size: 20px;
+        padding: 6px 0;
+    }
+}

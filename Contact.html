@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Contact</title>
+    <link rel="stylesheet" href="Contact.css">
+</head>
+
+<body>
+
+    <!-- ========== NAVBAR HTML ========== -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="logo">
+        </div>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="hamburger">
+            <img src="hamburger.png" alt="menu" class="ham-icon">
+            <img src="cross.png" alt="close" class="cross-icon">
+        </label>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="index.html#offers">Offers</a>
+            <a href="index.html#reviews">Reviews</a>
+            <a href="Contact.html">Contact</a>
+        </div>
+    </div>
+
+    <!-- ========== CONTACT HERO BUTTON ========== -->
+    <div class="contact-hero">
+        <button class="contact-hero-btn">📞 CONTACT US</button>
+    </div>
+
+    <!-- ========== CARDS ROW ========== -->
+    <div class="contact-cards-row">
+
+        <!-- Send Message Form Card -->
+        <div class="form-card">
+            <h3>✉️ SEND US A MESSAGE</h3>
+
+            <div class="form-field">
+                <label>Name:</label>
+                <input type="text" id="contactName" placeholder="Your full name">
+            </div>
+            <div class="form-field">
+                <label>Email:</label>
+                <input type="email" id="contactEmail" placeholder="your@email.com">
+            </div>
+            <div class="form-field">
+                <label>Subject:</label>
+                <input type="text" id="contactSubject" placeholder="Order inquiry / Feedback">
+            </div>
+
+            <div class="message-section">
+                <label>Message:</label>
+                <textarea id="contactMessage" placeholder="Write your message here..."></textarea>
+            </div>
+
+            <div class="send-btn">
+                <button onclick="sendMessage()">✉️ SEND MESSAGE</button>
+            </div>
+        </div>
+
+        <!-- Find Us Card -->
+        <div class="findus-card">
+            <h3>📍 FIND US</h3>
+
+            <div class="map-placeholder">
+                <img src="location.png" alt="Restaurant location map">
+            </div>
+
+            <div class="findus-info">
+                <p>📍 123 Food Street, Lahore, Pakistan</p>
+                <p>🕒 Mon-Sun: 12pm – 11pm</p>
+                <p>📞 +92 300 1234567<br>📧 hello@zainabrestaurant.com</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========== SOCIAL MEDIA SECTION ========== -->
+    <div class="social-section">
+        <h3>📱 FOLLOW US ON SOCIAL MEDIA</h3>
+        <div class="social-icons-row">
+            <a class="social-item" href="#">📘 <span>Facebook</span></a>
+            <a class="social-item" href="#">📷 <span>Instagram</span></a>
+            <a class="social-item" href="#">🐦 <span>Twitter</span></a>
+            <a class="social-item" href="#">💬 <span>WhatsApp</span></a>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h2>🍕 Zainab R</h2>
+                <p>Best biryani & street food in town. Fresh, spicy, delivered.</p>
+                <div class="timing">🕒 Mon-Sun: 12pm - 11pm</div>
+            </div>
+            <div class="footer-box">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="index.html#offers">Offers</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-box">
+                <h2>Contact Us</h2>
+                <p>📞 +92 300 1234<br>📧 hello@zainabrestaurant.com<br>📍 Lahore, Pakistan</p>
+            </div>
+            <div class="footer-box">
+                <h2>Follow Us</h2>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="subscribe">
+            <p>📧 Subscribe for exclusive offers: zanimoon7@gmail.com</p>
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+
+        <div class="payment">💳 We Accept: Visa | Mastercard | Easypaisa | JazzCash</div>
+        <div class="copyright">© 2026 Zainab Restaurant. All rights reserved. | Privacy Policy</div>
+    </footer>
+
+    <script>
+        // Subscribe button
+        const subscribeBtn = document.getElementById('subscribeBtn');
+        if (subscribeBtn) {
+            subscribeBtn.addEventListener('click', () => alert('✅ Subscribed! Thank you.'));
+        }
+
+        // Mobile menu close
+        const menuToggle = document.getElementById('menu-toggle');
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768 && menuToggle) {
+                    menuToggle.checked = false;
+                }
+            });
+        });
+
+        // Send message function with validation
+        function sendMessage() {
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const subject = document.getElementById('contactSubject').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            if (!name || !email || !subject || !message) {
+                alert('⚠️ Please fill all fields before sending.');
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('⚠️ Please enter a valid email address.');
+                return;
+            }
+
+            alert('📨 Thank you! Your message has been sent. We will get back to you soon.');
+
+            // Clear form
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactSubject').value = '';
+            document.getElementById('contactMessage').value = '';
+        }
+    </script>
+</body>
+
+</html>
